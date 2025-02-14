@@ -5,6 +5,7 @@ import checkEmail from "../middleware/middleware.js";
 const router = Router();
 
 // Rotas de usuarios
+// Rotas de usuarios
 router.post("/users", checkEmail, function (req, res) {
   const { name, email, password } = req.body;
 
@@ -22,7 +23,10 @@ router.post("/users", checkEmail, function (req, res) {
           .status(500)
           .json({ error: "Erro ao tentar criar um usuário" });
       }
-      return res.status(201).json({ message: "Usuário criado com sucesso" });
+      // Retornar o ID do usuário criado
+      return res
+        .status(201)
+        .json({ message: "Usuário criado com sucesso", id: this.lastID });
     }
   );
 });
