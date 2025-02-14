@@ -5,7 +5,7 @@ import checkEmail from "../middleware/middleware.js";
 const router = Router();
 
 // Rotas de usuarios
-// Rotas de usuarios
+
 router.post("/users", checkEmail, function (req, res) {
   const { name, email, password } = req.body;
 
@@ -23,7 +23,7 @@ router.post("/users", checkEmail, function (req, res) {
           .status(500)
           .json({ error: "Erro ao tentar criar um usuário" });
       }
-      // Retornar o ID do usuário criado
+
       return res
         .status(201)
         .json({ message: "Usuário criado com sucesso", id: this.lastID });
@@ -31,33 +31,31 @@ router.post("/users", checkEmail, function (req, res) {
   );
 });
 
-// Rota de login
-router.post('/login', function (req, res) {
+router.post("/login", function (req, res) {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
+    return res.status(400).json({ error: "Todos os campos são obrigatórios" });
   }
 
   db.get(
-    'SELECT * FROM users WHERE email = ? AND password = ?',
+    "SELECT * FROM users WHERE email = ? AND password = ?",
     [email, password],
     (err, row) => {
       if (err) {
         console.error(err);
-        return res.status(500).json({ error: 'Erro ao tentar fazer login' });
+        return res.status(500).json({ error: "Erro ao tentar fazer login" });
       }
       if (!row) {
-        return res.status(401).json({ error: 'Credenciais inválidas' });
+        return res.status(401).json({ error: "Credenciais inválidas" });
       }
       return res.status(200).json({
-        message: 'Login bem-sucedido',
-        user: row 
+        message: "Login bem-sucedido",
+        user: row,
       });
     }
   );
 });
-
 
 router.get("/users", (req, res) => {
   db.all("SELECT * FROM users", [], (err, rows) => {
