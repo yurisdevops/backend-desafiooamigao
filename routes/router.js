@@ -85,7 +85,6 @@ router.post("/phones", function (req, res) {
       }
       return res.status(201).json({
         message: `Telefone cadastrado.`,
-        phoneId: this.lastID,
       });
     }
   );
