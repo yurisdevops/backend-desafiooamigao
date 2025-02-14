@@ -6,6 +6,11 @@ const router = Router();
 
 // Rotas de usuarios
 
+router.post("/check-email", checkEmail, (req, res) => {
+
+  return res.status(200).json({ message: "Email disponível" });
+});
+
 router.post("/users", checkEmail, function (req, res) {
   const { name, email, password } = req.body;
 
