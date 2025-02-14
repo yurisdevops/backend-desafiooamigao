@@ -107,26 +107,26 @@ router.get("/phones", (req, res) => {
 
 // Rotas de membros
 
-router.post("/members", checkEmail, (req, res) => {
-  const { name, email, password, clientId } = req.body;
+router.post("/members", checkEmail, (req, res) => {  
+  const { name, email, password, clientId } = req.body;  
 
-  if (!name || !email || !password || !clientId) {
-    return res.status(400).json({ error: "Todos os campos são obrigatórios" });
-  }
+  if (!name || !email || !password || !clientId) {  
+    return res.status(400).json({ error: "Todos os campos são obrigatórios" });  
+  }  
 
-  db.run(
-    "INSERT INTO members (name, email, password, clientId) VALUES (?, ?, ?, ?)",
-    [name, email, password, clientId],
-    (err) => {
-      if (err) {
-        console.error(err);
-        return res
-          .status(500)
-          .json({ error: "Erro ao tentar cadastrar um novo membro" });
-      }
-      return res.status(201).json({ id: this.lastID });
-    }
-  );
+  db.run(  
+    "INSERT INTO members (name, email, password, clientId) VALUES (?, ?, ?, ?)",  
+    [name, email, password, clientId],  
+    function(err) { 
+      if (err) {  
+        console.error(err);  
+        return res  
+          .status(500)  
+          .json({ error: "Erro ao tentar cadastrar um novo membro" });  
+      }  
+      return res.status(201).json({ id: this.lastID }); 
+    }  
+  );  
 });
 
 router.get("/members", (req, res) => {
