@@ -9,6 +9,10 @@ db.serialize(() => {
   db.run(
     "CREATE TABLE IF NOT EXISTS phones (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, phone TEXT NOT NULL, clientId INTEGER, FOREIGN KEY (clientId)  REFERENCES users (id))"
   );
+
+  db.run(
+    "CREATE TABLE IF NOT EXISTS members (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, clientId INTEGER, FOREIGN KEY (clientId) REFERENCES users (id))"
+  );
 });
 
 export default db;

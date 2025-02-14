@@ -11,5 +11,7 @@
   },
   "scripts": {
     "dev": "node server.js"
-  }
+  },
+  "repository": "https://github.com/yurisdevops/backend-desafiooamigao.git",
+  "author": "yurisdevops <yurimachado.dev@gmail.com>"
 }
