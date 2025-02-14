@@ -143,7 +143,7 @@ router.get("/members", (req, res) => {
   );
 });
 
-router.delete("/members", (req, res) => {
+router.delete("/members/:id", (req, res) => {
   const id = parseInt(req.query.id);
   if (!id) {
     return res.status(400).json({ error: "Id do membro ausente" });
