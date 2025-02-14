@@ -124,7 +124,7 @@ router.post("/members", checkEmail, (req, res) => {
           .status(500)
           .json({ error: "Erro ao tentar cadastrar um novo membro" });
       }
-      return res.status(201).json({ message: "Membro criado com sucesso" });
+      return res.status(201).json({ id: this.lastID });
     }
   );
 });
