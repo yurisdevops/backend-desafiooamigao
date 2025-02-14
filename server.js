@@ -1,11 +1,13 @@
 import express from "express";
-import userRoutes from "./routes/router.js"; // Certifique-se de usar o caminho correto
+import userRoutes from "./routes/router.js";
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());
 
-// Usar o router com o prefixo '/api'
+app.use(cors());
+
 app.use("/api", userRoutes);
 
 const PORT = process.env.PORT || 3333;
