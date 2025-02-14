@@ -14,30 +14,29 @@ router.post("/check-email", checkEmail, (req, res) => {
 router.post("/users", checkEmail, function (req, res) {
   const { name, email, password } = req.body;
 
-  
   if (!name || !email || !password) {
-    return res.status(400).json({ error: "Todos os campos são obrigatórios" });
+    return res.status(400).json({ error: "All fields are required" });
   }
-
 
   db.run(
     "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
     [name, email, password],
     function (err) {
       if (err) {
-        console.error("Erro ao inserir usuário:", err.message);
-        return res.status(500).json({ error: "Erro ao criar usuário" });
+        console.error(err);
+        return res
+          .status(500)
+          .json({ error: "Erro ao tentar criar um usuário" });
       }
 
-      
-      return res.status(201).json({
-        message: "Usuário criado com sucesso",
-        id: this.lastID,
-      });
+      return res
+        .status(201)
+        .json({ message: "Usuário criado com sucesso", id: this.lastID });
     }
   );
 });
-router.post("/login", function (req, res) {
+
+router.post("/login", checkEmail, function (req, res) {
   const { email, password } = req.body;
 
   if (!email || !password) {
