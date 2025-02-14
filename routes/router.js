@@ -81,7 +81,7 @@ router.post("/members", checkEmail, (req, res) => {
   }
 
   db.run(
-    "INSERT INTO phones (name, email, password, clientId) VALUES (?, ?, ?, ?",
+    "INSERT INTO members (name, email, password, clientId) VALUES (?, ?, ?, ?)",
     [name, email, password, clientId],
     (err) => {
       if (err) {
@@ -107,6 +107,19 @@ router.get("/members", (req, res) => {
       return res.json(rows);
     }
   );
+});
+
+router.delete("/members", (req, res) => {
+  const id = parseInt(req.query.id);
+  if (!id) {
+    return res.status(400).json({ error: "Id do membro ausente" });
+  }
+  db.run("DELETE FROM members WHERE id =?", [id], (err) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    return res.status(204).json({ message: `Membro deletado ${id}` });
+  });
 });
 
 export default router;
