@@ -36,7 +36,7 @@ router.post("/users", checkEmail, function (req, res) {
   );
 });
 
-router.post("/login", checkEmail, function (req, res) {
+router.post("/login", function (req, res) {
   const { email, password } = req.body;
 
   if (!email || !password) {
