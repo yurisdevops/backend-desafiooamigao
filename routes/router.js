@@ -144,7 +144,7 @@ router.get("/members", (req, res) => {
 });
 
 router.delete("/members/:id", (req, res) => {
-  const id = req.query.id
+  const id = req.params.id
   if (!id) {
     return res.status(400).json({ error: "Id do membro ausente" });
   }
