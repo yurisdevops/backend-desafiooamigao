@@ -74,34 +74,5 @@ router.get("/phones", (req, res) => {
 });
 
 // Rotas de membros
-router.post("/members", checkEmail, (req, res) => {
-  const { name, email, password, clientId } = req.body;
-
-  if (!name || !email || !password || !clientId) {
-    return res.status(400).json({ error: "Todos os campos são necessários." });
-  }
-
-  db.run(
-    "INSERT INTO members (name, email, password, clientId) VALUES (?, ?, ?, ?)",
-    [name, email, password, clientId],
-    function (err) {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-      return res
-        .status(201)
-        .json({ message: "Membro criado com sucesso", id: this.lastID });
-    }
-  );
-});
-
-router.get("/members", (req, res) => {
-  db.all("SELECT * FROM members", [], (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    return res.json(rows);
-  });
-});
 
 export default router;
