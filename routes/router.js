@@ -82,15 +82,13 @@ router.post("/phones", function (req, res) {
   db.run(
     "INSERT INTO phones (name, phone, clientId) VALUES (? , ?, ?)",
     [name, phone, clientId],
-    (err) => {
+    function(err) {
       if (err) {
         return res
           .status(500)
           .json({ error: "Erro ao tentar cadastrar os dados" });
       }
-      return res.status(201).json({
-        message: `Telefone cadastrado.`,
-      });
+      return res.status(201).json({ id: this.lastID });
     }
   );
 });
@@ -102,6 +100,19 @@ router.get("/phones", (req, res) => {
       return res.status(500).json({ error: err.message });
     }
     return res.json(rows);
+  });
+});
+
+router.delete("/phones/:id", (req, res) => {
+  const id = req.params.id
+  if (!id) {
+    return res.status(400).json({ error: "Id do telefone ausente" });
+  }
+  db.run("DELETE FROM phones WHERE id =?", [id], (err) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    return res.status(204).json({ message: `Telefone deletado ${id}` });
   });
 });
 
