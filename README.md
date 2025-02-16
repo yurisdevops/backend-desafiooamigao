@@ -22,7 +22,7 @@ git clone https://github.com/yurisdevops/backend-desafiooamigao.git
 
 ```bash
 cd backend-desafiooamigao
-npm install
+yarn install
 ```
 
 3. Configure o arquivo `.env` com as variáveis de ambiente necessárias (por exemplo, URL do banco de dados, porta do servidor, etc).
@@ -30,7 +30,7 @@ npm install
 4. Inicie o servidor:
 
 ```bash
-npm start
+yarn dev
 ```
 
 ## Endpoints da API
